@@ -469,6 +469,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatDuration: 1.5
+  _rt: {fileID: 574140617}
+  _maxDistance: 60
+  _minDistance: 30
+  _scale: 1.05
+  _loop: 2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class BallSpawner : MonoBehaviour
     public Ball CurrentBall => _currentBall;
 
    [SerializeField] private Ball _ballPrefab;
-
+   [SerializeField] private float _waitTime;
    private Ball _currentBall;
    
    public void Initialize()
@@ -27,7 +27,7 @@ public class BallSpawner : MonoBehaviour
    {
        _currentBall.OnBallLanded -= HandleBallLanded;
        
-       StartCoroutine(SpawnNewBallWithDelay(0.5f));
+       StartCoroutine(SpawnNewBallWithDelay(_waitTime));
    }
 
    private IEnumerator SpawnNewBallWithDelay(float delay)

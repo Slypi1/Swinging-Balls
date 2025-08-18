@@ -4,6 +4,7 @@ using UnityEngine;
 public class Zone : MonoBehaviour
 {
     public List<Ball> Balls => _balls;
+    [SerializeField] private int _maxBallCount;
     
     private List<Ball> _balls = new List<Ball>();
     private ZoneManager _zoneManager;
@@ -15,7 +16,7 @@ public class Zone : MonoBehaviour
     
     public void AddBall(Ball ball)
     {
-        if (_balls.Count == 3)
+        if (_balls.Count == _maxBallCount)
         {
             Destroy(ball.gameObject);
             return;

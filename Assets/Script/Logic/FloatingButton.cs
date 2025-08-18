@@ -4,15 +4,18 @@ using UnityEngine;
 public class FloatingButton : MonoBehaviour
 {
     [SerializeField] private float floatDuration;
- 
-    private RectTransform _rt;
+    [SerializeField] private RectTransform _rt;
+    [SerializeField] private float _maxDistance;
+    [SerializeField] private float _minDistance;
+    [SerializeField] private float _scale;
+    [SerializeField] private int _loop;
+    
     private Vector2 _startPos;
     private Sequence _sequence;
     
     private bool addScaling = true;
    private void Start()
     {
-        _rt = GetComponent<RectTransform>();
         _startPos = _rt.anchoredPosition;
         
         StartFloating();
@@ -27,14 +30,14 @@ public class FloatingButton : MonoBehaviour
         _sequence = DOTween.Sequence();
         
         _sequence.Append(
-            _rt.DOAnchorPosY(60f, floatDuration)
+            _rt.DOAnchorPosY(_maxDistance, floatDuration)
                 .SetEase(Ease.OutSine)
         ).Append(
-            _rt.DOAnchorPosY(30f, floatDuration)
+            _rt.DOAnchorPosY(_minDistance, floatDuration)
                 .SetEase(Ease.OutSine)
         ).Join(
-                _rt.DOScale(1.05f, floatDuration)
-                    .SetLoops(2, LoopType.Yoyo)).
+                _rt.DOScale(_scale, floatDuration)
+                    .SetLoops(_loop, LoopType.Yoyo)).
             SetLoops(-1);
         
         _sequence.Play();

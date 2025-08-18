@@ -13,6 +13,7 @@ public class ZoneManager : MonoBehaviour
     public void Initialize(GameManager gameManager)
     {
         _gameManager = gameManager;
+        
         foreach (var zone in zones)
         {
             zone.Initialize(this);
@@ -130,7 +131,7 @@ public class ZoneManager : MonoBehaviour
     
     private bool IsMatch(List<Ball> balls)
     {
-        if (balls.Count < 3) return false;
+        if (balls.Count < _maxBallZone) return false;
     
         var firstColor = balls[0].ColorType;
         foreach (var ball in balls)

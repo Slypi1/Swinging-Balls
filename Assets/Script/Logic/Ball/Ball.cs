@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,8 +12,11 @@ public class Ball : MonoBehaviour
     
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private float spawnForce;
-    [SerializeField] private  Vector2 spawnDirection;
+    [SerializeField] private float _spawnForce;
+    [SerializeField] private  Vector2 _spawnDirection;
+    [SerializeField] private float _waitTime;
+    [SerializeField] private float _minDistance;
+    [SerializeField] private float _maxTime;
     
     private bool _hasLanded;
     private float _stuckTimer;
@@ -49,16 +53,16 @@ public class Ball : MonoBehaviour
         _currentZone = zone;
     }
     
-    private BallColorType GetRandomColorType()
-    {
-        var values = Enum.GetValues(typeof(BallColorType));
-        return (BallColorType)values.GetValue(Random.Range(0, values.Length));
-    }
-    
     public void ThrowDown()
     {
         _rb.isKinematic = false;
         Down();
+    }
+    
+    private BallColorType GetRandomColorType()
+    {
+        var values = Enum.GetValues(typeof(BallColorType));
+        return (BallColorType)values.GetValue(Random.Range(0, values.Length));
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -67,6 +71,8 @@ public class Ball : MonoBehaviour
         
         Zone zone = collision.gameObject.GetComponent<Zone>();
         Ball ball = collision.gameObject.GetComponent<Ball>();
+        
+        StartCoroutine(CheckStuckCoroutine());
         
         if (zone != null)
         {
@@ -79,23 +85,28 @@ public class Ball : MonoBehaviour
             ball.CurrentZone.AddBall(this);
             LandOnZone();
         }
-    }
-    
-    private void Update()
-    {
-        CheckStuckCondition();
+        
     }
 
-    public void CheckStuckCondition()
+    private IEnumerator CheckStuckCoroutine() 
+    {
+        while (true) 
+        {
+            CheckStuckCondition();
+            yield return new WaitForSeconds(_waitTime);
+        }
+    }
+
+    private void CheckStuckCondition()
     {
         if (_currentZone != null) return;
 
     
-        if (Vector2.Distance(_lastPosition, _rb.position) < 0.01f)
+        if (Vector2.Distance(_lastPosition, _rb.position) < _minDistance)
         {
             _stuckTimer += Time.deltaTime;
             
-            if (_stuckTimer > 0.5f)
+            if (_stuckTimer > _maxTime)
             {
                 ForceUnstuck();
             }
@@ -119,8 +130,8 @@ public class Ball : MonoBehaviour
         _hasLanded = true;
         _rb.linearVelocity = Vector2.zero;
         _rb.isKinematic = true;
-        
+        StopCoroutine(CheckStuckCoroutine());
     }
     
-    private void Down() => _rb.AddForce(spawnDirection * spawnForce, ForceMode2D.Impulse);
+    private void Down() => _rb.AddForce(_spawnDirection * _spawnForce, ForceMode2D.Impulse);
 }

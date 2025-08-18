@@ -104,8 +104,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 9085180323114252562}
   _rb: {fileID: -2740486450707328802}
-  spawnForce: 5
-  spawnDirection: {x: 0, y: -1}
+  _spawnForce: 5
+  _spawnDirection: {x: 0, y: -1}
+  _waitTime: 0.1
+  _minDistance: 0.01
+  _maxTime: 0.5
 --- !u!58 &-3332143260366143025
 CircleCollider2D:
   m_ObjectHideFlags: 0

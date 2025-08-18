@@ -566,6 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf4353ae267441488b8589ed3ab93bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxBallCount: 3
 --- !u!61 &920511230
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -984,6 +985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf4353ae267441488b8589ed3ab93bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxBallCount: 3
 --- !u!61 &1349520873
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1232,6 +1234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf4353ae267441488b8589ed3ab93bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxBallCount: 3
 --- !u!1 &1763267844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballPrefab: {fileID: -7621656473093867991, guid: c26a67a775987e940909c325201aaab3, type: 3}
+  _waitTime: 0.5
 --- !u!1 &1910064085
 GameObject:
   m_ObjectHideFlags: 0
